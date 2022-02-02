@@ -453,6 +453,10 @@ local getstring = function(begin)
 	return AA
 end
 
+local getRandomString = function()
+    return string.sub(string.gsub(game:GetService("HttpService"):GenerateGUID(false), "-", ""), 1, math.random(25, 30))
+end
+
 local createChatHook = function()
     local getprfx = function(strn)
         if string.sub(strn, 1, string.len(AdminAPI.Prefix)) == AdminAPI.Prefix then return {"cmd", string.len(AdminAPI.Prefix) + 1} end return
@@ -507,7 +511,9 @@ AdminAPI.GetPlayer = getPlayer
 AdminAPI.ExecuteCommand = execCmd
 AdminAPI.GetString = getstring
 AdminAPI.FindCommand = findCmd
+AdminAPI.SearchCommand = findCmd
 AdminAPI.IsNumber = isNumber
+AdminAPI.RandomString = getRandomString
 AdminAPI.CreateChatHook = createChatHook
 AdminAPI.CreateCommand = addcmdtotable
 AdminAPI.NewCommand = addcmdtotable
@@ -517,6 +523,10 @@ AdminAPI.GetHumanoid = getHum
 AdminAPI.GetBackpack = getBp
 AdminAPI.GetRoot = getRoot
 AdminAPI.Notify = makeNotification
+AdminAPI.CreateSpecialPlayerCase = addspecialplayerCase
+AdminAPI.NewSpecialPlayerCase = addspecialplayerCase
 AdminAPI.AddSpecialPlayerCase = addspecialplayerCase
 AdminAPI.RemoveSpecialPlayerCase = removespecialplayerCase
+AdminAPI.DeleteSpecialPlayerCase = removespecialplayerCase
+AdminAPI.DestroySpecialPlayerCase = removespecialplayerCase
 return AdminAPI
