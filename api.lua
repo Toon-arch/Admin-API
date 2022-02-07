@@ -1,6 +1,7 @@
 local AdminAPI = {
     ["Debug"] = false,
     ["Commands"] = {},
+    ["CommandArgs"] = {},
     ["Prefix"] = ";",
 }
 
@@ -358,7 +359,6 @@ local cmdHistory = {}
 local lastCmds = {}
 local split = " "
 local lastBreakTime = 0
-local cargs = {}
 local execCmd = function(cmdStr, speaker, store)
 	cmdStr = string.gsub(cmdStr, "%s+$", "")
 	spawn(function()
@@ -402,7 +402,7 @@ local execCmd = function(cmdStr, speaker, store)
 			local cmd = findCmd(cmdName)
 			if cmd then
 				table.remove(args, 1)
-				cargs = args
+				AdminAPI.CommandArgs = args
 				if not speaker then speaker = Players.LocalPlayer end
 				if store then
 					if speaker == Players.LocalPlayer then
@@ -441,7 +441,7 @@ end
 
 local getstring = function(begin)
 	local start = begin - 1
-	local AA = "" for i,v in pairs(cargs) do
+	local AA = "" for i,v in pairs(AdminAPI.CommandArgs) do
 		if i > start then
 			if AA ~= "" then
 				AA = AA .. " " .. v
@@ -491,6 +491,20 @@ local addcmdtotable = function(name, alias, func)
     return {["Destroy"]=DestroyFunc,["Remove"]=DestroyFunc,["Delete"]=DestroyFunc}
 end
 
+local writeOverCommand = function(cmd, func)
+    cmd = tostring(cmd) or " "
+	if cmd ~= " " then
+		if type(func) == "function" then
+			cmd = string.lower(cmd)
+			for i = #AdminAPI.Commands, 1, -1 do
+				if AdminAPI.Commands[i].NAME == cmd or FindInTable(AdminAPI.Commands[i].ALIAS, cmd) then
+					AdminAPI.Commands[i].FUNC = func
+				end
+			end
+		end
+	end
+end
+
 local makeNotification = function(...)
 	local arguments = {...}
 	if arguments[1] and arguments[2] then
@@ -529,4 +543,7 @@ AdminAPI.AddSpecialPlayerCase = addspecialplayerCase
 AdminAPI.RemoveSpecialPlayerCase = removespecialplayerCase
 AdminAPI.DeleteSpecialPlayerCase = removespecialplayerCase
 AdminAPI.DestroySpecialPlayerCase = removespecialplayerCase
+AdminAPI.ReplaceCommand = writeOverCommand
+AdminAPI.RewriteCommand = writeOverCommand
+AdminAPI.FindInTable = FindInTable
 return AdminAPI
