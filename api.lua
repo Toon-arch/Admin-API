@@ -32,9 +32,9 @@ local getHum = function(character)
 	return character:FindFirstChildOfClass("Humanoid")
 end
 
-local getBp = function(character)
-	character = character or getCharacter()
-	return character:FindFirstChildOfClass("Backpack")
+local getBp = function(player)
+	player = player or Players.LocalPlayer
+	return player:FindFirstChildOfClass("Backpack")
 end
 
 local getRoot = function(character)
