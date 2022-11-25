@@ -1,10 +1,10 @@
 ```lua
-local AdminAPI = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Toon-arch/Admin-API/main/api.lua"))();
+local AdminAPI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon-arch/Admin-API/main/api.lua"))()
 ```
 
 some trash example:
 ```lua
-local AdminAPI = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Toon-arch/Admin-API/main/api.lua"))();
+local AdminAPI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon-arch/Admin-API/main/api.lua"))()
 AdminAPI.Prefix = "." -- Default is ;
 AdminAPI.CreateChatHook() -- Automatically handle chat commands
 AdminAPI.CreateCommand("reset", {}, function(args, speaker)
